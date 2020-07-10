@@ -1,0 +1,49 @@
+name: PeloPages Pipeline
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build-artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Build with Gradle
+        run: |
+          chmod 777 gradlew
+          ./gradlew clean :business:build
+      - name: Build with Gradle
+        run: |
+          chmod 777 gradlew
+          ./gradlew  :category:build
+      - name: Upload Artifact Business
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact
+          path: business/build/libs/business-1.0-SNAPSHOT.jar
+      - name: Upload Artifact Category
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact
+          path: category/build/libs/category-1.0-SNAPSHOT.jar
+      - name: build-docker-image-business
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: adityapratapbhuyan/kube-ms-workshop
+          tags: business-v1
+          dockerfile: Dockerfile.bis
+      - name: build-docker-image-category
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: adityapratapbhuyan/kube-ms-workshop
+          tags: category-v1
+          dockerfile: Dockerfile.cat
