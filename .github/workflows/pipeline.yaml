@@ -13,13 +13,11 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Build with Gradle
+      - name: Build with Gradle Business
         run: |
-          chmod 777 gradlew
           ./gradlew clean :business:build
-      - name: Build with Gradle
+      - name: Build with Gradle Category
         run: |
-          chmod 777 gradlew
           ./gradlew  :category:build
       - name: Upload Artifact Business
         uses: actions/upload-artifact@v2
