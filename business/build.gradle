@@ -13,6 +13,9 @@ bootJar {
 
 jar {
     enabled = true
+    manifest {
+        attributes 'Main-Class': 'org.dell.edu.kube.workshop.business.KubeWorkshopBusinessApplication'
+    }
 }
 repositories {
     mavenCentral()

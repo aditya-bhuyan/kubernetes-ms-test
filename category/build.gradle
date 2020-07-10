@@ -17,6 +17,9 @@ bootJar {
 
 jar {
     enabled = true
+    manifest {
+        attributes 'Main-Class': 'org.dell.edu.kube.workshop.category.KubeWorkshopCategoryApplication'
+    }
 }
 dependencies {
     //implementation 'org.springframework.boot:spring-boot-starter-data-rest'
