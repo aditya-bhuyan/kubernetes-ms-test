@@ -13,15 +13,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Build with Gradle Business
+      - name: Build with Gradle
         uses: eskatos/gradle-command-action@v1
         with:
-          arguments: :business:build
-          gradle-version: 6.4
-      - name: Build with Gradle Category
-        uses: eskatos/gradle-command-action@v1
-        with:
-          arguments: :category:build
+          arguments: build
           gradle-version: 6.4
       - name: Upload Artifact Business
         uses: actions/upload-artifact@v2
