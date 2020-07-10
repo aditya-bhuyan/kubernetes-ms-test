@@ -14,13 +14,15 @@ jobs:
         with:
           java-version: 11
       - name: Build with Gradle Business
-        run: |
-          chmod +x gradlew
-          ./gradlew clean :business:build
+        uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: :business:build
+          gradle-version: 6.4
       - name: Build with Gradle Category
-        run: |
-          chmod +x gradlew
-          ./gradlew  :category:build
+        uses: eskatos/gradle-command-action@v1
+        with:
+          arguments: :category:build
+          gradle-version: 6.4
       - name: Upload Artifact Business
         uses: actions/upload-artifact@v2
         with:
