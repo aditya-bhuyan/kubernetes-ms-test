@@ -13,9 +13,16 @@ public class WelcomeCategoryController {
     Logger loger = LoggerFactory.getLogger(WelcomeCategoryController.class);
     @Value("${welcome.message:Welcome to Kubernetes Category Application}")
     private String message;
+
+    @Value("${HOSTNAME:category}")
+    private String hostname;
     @GetMapping
     public String index(){
-        loger.debug("Welcome Message Generated");
+        loger.trace("Welcome to Kubernetes Category Application Message Generated @"+hostname);
+        loger.debug("Welcome to Kubernetes Category Application Message Generated @"+hostname);
+        loger.warn("Welcome to Kubernetes Category Application Message Generated @"+hostname);
+        loger.info("Welcome to Kubernetes Category Application Message Generated @"+hostname);
+        loger.error("Welcome to Kubernetes Category Application Message Generated @"+hostname);
         /*StringBuilder message = new StringBuilder();
         message.append("<html>");
         message.append("<head><title>Welcome to Dell Kubernetes Microservices</title></head>");

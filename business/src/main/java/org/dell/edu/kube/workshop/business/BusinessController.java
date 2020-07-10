@@ -1,5 +1,7 @@
 package org.dell.edu.kube.workshop.business;
 
+
+
 import org.dell.edu.kube.workshop.business.data.BusinessRepository;
 import org.dell.edu.kube.workshop.business.data.BusinessVO;
 import org.dell.edu.kube.workshop.business.data.Business;
@@ -27,6 +29,9 @@ public class BusinessController {
     @Value("${category.url:http://localhost:8082/category}")
     private String categoryUrl;
 
+    @Value("${HOSTNAME:business}")
+    private String hostname;
+
     @PostMapping
     public ResponseEntity add( @RequestBody Business business){
 
@@ -44,12 +49,14 @@ public class BusinessController {
 
     @GetMapping
     public ResponseEntity all(){
+        logger.info("All Entities Returned");
         return new ResponseEntity(repository.findAll(),HttpStatus.OK);
 
     }
 
     @GetMapping("/{id}")
     public ResponseEntity get(@PathVariable Long id){
+        logger.info("Get Message called for id "+id);
         Optional<Business> business = repository.findById(id);
         if(business.isPresent()){
             BusinessVO vo = new BusinessVO(business.get());
@@ -64,6 +71,7 @@ public class BusinessController {
     }
     @PutMapping("/{id}")
     public ResponseEntity update(@PathVariable Long id, @RequestBody Business business){
+        logger.info("Update method called for id"+id);
         if(repository.existsById(id)){
             business.setId(id);
             repository.save(business);
@@ -75,6 +83,7 @@ public class BusinessController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id){
+        logger.info("Delete method Called for Id "+id);
         if(repository.existsById(id)){
             repository.deleteById(id);
         }
@@ -84,6 +93,7 @@ public class BusinessController {
 
     @GetMapping("category/{categoryId}")
     public ResponseEntity getByCategory(@PathVariable Long categoryId){
+        logger.info("Get By Category Method called for categoryId "+categoryId);
         Category category = getCategory(categoryId);
         if(category != null){
             List<Business> businesses = repository.findByCategory(categoryId);
@@ -95,6 +105,7 @@ public class BusinessController {
 
     @GetMapping("owner/{owner}")
     public ResponseEntity getByOwner(@PathVariable String owner){
+        logger.info("Get By Owner called for owner "+owner);
         List<Business> business = repository.findByOwner(owner);
         if(business != null && !business.isEmpty()){
             return new ResponseEntity(business,HttpStatus.OK);
@@ -104,9 +115,23 @@ public class BusinessController {
 
     }
 
+
+
     private Category getCategory(Long categoryId){
         Category entity = restTemplate.getForObject(categoryUrl+"/"+categoryId,Category.class);
         logger.debug("*************************Category Available :"+entity+"*****************************");
         return entity;
+    }
+
+    @GetMapping("/categoryhost")
+    public String getCategoryHost(){
+        String host = restTemplate.getForObject(categoryUrl+"/host",String.class);
+        logger.debug("*************************Category Host Available :"+host+"*****************************");
+        return host;
+    }
+
+    @GetMapping("/host")
+    public String getHost(){
+        return hostname;
     }
 }

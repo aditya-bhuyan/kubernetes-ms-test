@@ -5,6 +5,7 @@ import org.dell.edu.kube.workshop.category.data.CategoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,8 @@ public class CategoryController {
     Logger logger = LoggerFactory.getLogger(CategoryController.class);
     @Autowired
     CategoryRepository repository;
-
+    @Value("${HOSTNAME:category}")
+    private String hostname;
     @PostMapping
     public ResponseEntity add(@RequestBody Category category){
         repository.save(category);
@@ -65,5 +67,10 @@ public class CategoryController {
     public String delete(@PathVariable Long id){
         repository.deleteById(id);
         return "Category Deleted";
+    }
+
+    @GetMapping("/host")
+    public String getHost(){
+        return hostname;
     }
 }
