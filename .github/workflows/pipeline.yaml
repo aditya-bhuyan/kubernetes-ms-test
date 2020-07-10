@@ -15,9 +15,11 @@ jobs:
           java-version: 11
       - name: Build with Gradle Business
         run: |
+          chmod +x gradlew
           ./gradlew clean :business:build
       - name: Build with Gradle Category
         run: |
+          chmod +x gradlew
           ./gradlew  :category:build
       - name: Upload Artifact Business
         uses: actions/upload-artifact@v2
