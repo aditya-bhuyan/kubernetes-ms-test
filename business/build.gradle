@@ -1,0 +1,37 @@
+plugins {
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+    id 'java'
+}
+
+group 'org.dell.edu.kube.workshop'
+version '1.0-SNAPSHOT'
+bootJar {
+
+    enabled = true
+}
+
+jar {
+    enabled = true
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(":category")
+    //implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.springfox:springfox-core:2.7.0'
+    implementation 'io.swagger:swagger-annotations:1.6.1'
+    implementation 'io.springfox:springfox-swagger2:2.7.0'
+    implementation  'io.springfox:springfox-swagger-ui:2.7.0'
+    runtimeOnly 'com.h2database:h2'
+    //compile group: 'io.springfox', name: 'springfox-core', version: '2.9.2'
+    //compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    //compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    //implementation 'org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE'
+    //testCompile group: 'junit', name: 'junit', version: '4.12'
+}

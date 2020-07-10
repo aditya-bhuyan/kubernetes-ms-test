@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: business
+  name: business
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: business
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: business
+    spec:
+      volumes:
+      - name: log-volume
+        emptyDir: {}
+      containers:
+      - image: adityapratapbhuyan/kube-ms-workshop:business-v1
+        name: kube-business-ms
+        volumeMounts:
+        - name: log-volume
+          mountPath: "/var/tmp/"
+        env:
+        - name: category.url
+          value: "http://category:8082/category"
+        - name: spring.jpa.hibernate.ddl-auto
+          value: "update"
+        - name: management.endpoint.health.show-details
+          value: "always"
+        - name: management.endpoints.web.exposure.include
+          value: "*"
+        - name: logging.file.name
+          value: "/var/tmp/kube-business-workshop.log"
+        ports:
+        - containerPort: 8080
+        resources: {}
+status: {}

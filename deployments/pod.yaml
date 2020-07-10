@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+   name: log-volume
+spec:
+  capacity:
+    storage: 50Mi
+  volumeMode: Filesystem
+  accessModes:
+      - ReadWriteMany
+  storageClassName: slow
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: log-volume-claim
+spec:
+  resources:
+    requests:
+      storage: 40Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  storageClassName: slow
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: kube-workshop
+  name: kube-workshop
+spec:
+  volumes:
+    - name: log-vol
+      persistentVolumeClaim:
+        claimName: log-volume-claim
+  containers:
+  - env:
+    - name: management.endpoints.web.exposure.include
+      value: "*"
+    - name: management.endpoint.health.show-details
+      value: "always"
+    - name: spring.jpa.hibernate.ddl-auto
+      value: "update"
+    - name: SPRING_DATASOURCE_USERNAME
+      value: "kube"
+    - name: spring.jpa.show-sql
+      value: "true"
+    - name: SPRING_DATASOURCE_URL
+      value: "jdbc:mysql://mysql:3306/kubeDB??createDatabaseIfNotExist=true&useSSL=false&user=kube"
+    - name: SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT
+      value: "org.hibernate.dialect.MySQL5Dialect"
+    - name: logging.file.name
+      value: "/var/log/tmp/kube-workshop.log"
+    image: adityapratapbhuyan/aditya-test:kube-workshop-v1
+    name: kube-workshop
+    volumeMounts:
+      - mountPath: "/var/log/tmp"
+        name: log-vol
+    ports:
+    - containerPort: 8080
