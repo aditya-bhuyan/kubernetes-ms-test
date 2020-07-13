@@ -22,7 +22,7 @@ spec:
     - name: management.endpoints.web.exposure.include
       value: "*"
     - name: logging.file.name
-      value: "/var/tmp/kube-category-workshop.log"
+      value: "/var/tmp/category.log"
     ports:
     - containerPort: 8082
     resources: {}

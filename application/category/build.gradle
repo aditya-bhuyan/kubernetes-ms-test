@@ -1,0 +1,16 @@
+apply from: "$projectDir/../server.gradle"
+
+group = 'org.dell.edu.kube'
+version = '0.0.1-SNAPSHOT'
+
+description("Category Server")
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+    manifest {
+        attributes 'Main-Class': 'org.dell.edu.kube.category.KubeWorkshopCategoryApplication'
+    }
+}

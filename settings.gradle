@@ -1,4 +1,4 @@
 rootProject.name = 'kubernetes-ms'
-include 'business'
-include 'category'
+include 'application:business'
+include 'application:category'
 

@@ -1,4 +1,4 @@
 FROM openjdk:11-jdk
-ARG JAR_FILE=category/build/libs/*.jar
+ARG JAR_FILE=application/category/build/libs/*.jar
 COPY ${JAR_FILE} app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]

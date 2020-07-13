@@ -20,7 +20,7 @@ spec:
         emptyDir: {}
       containers:
       - image: adityapratapbhuyan/kube-ms-workshop:category-v1
-        name: kube-category-ms
+        name: category
         env:
         - name: spring.jpa.hibernate.ddl-auto
           value: "update"
@@ -29,7 +29,7 @@ spec:
         - name: management.endpoints.web.exposure.include
           value: "*"
         - name: logging.file.name
-          value: "/var/tmp/kube-category-workshop.log"
+          value: "/var/tmp/category.log"
         ports:
         - containerPort: 8082
         volumeMounts:

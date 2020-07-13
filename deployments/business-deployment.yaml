@@ -20,7 +20,8 @@ spec:
         emptyDir: {}
       containers:
       - image: adityapratapbhuyan/kube-ms-workshop:business-v1
-        name: kube-business-ms
+        imagePullPolicy: Always
+        name: business
         volumeMounts:
         - name: log-volume
           mountPath: "/var/tmp/"
@@ -34,7 +35,7 @@ spec:
         - name: management.endpoints.web.exposure.include
           value: "*"
         - name: logging.file.name
-          value: "/var/tmp/kube-business-workshop.log"
+          value: "/var/tmp/business.log"
         ports:
         - containerPort: 8080
         resources: {}

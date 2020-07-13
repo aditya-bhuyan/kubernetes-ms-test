@@ -1,0 +1,20 @@
+apply from: "$projectDir/../server.gradle"
+
+group = 'org.edu.dell.kube'
+version = '0.0.1-SNAPSHOT'
+description("Business Server")
+
+dependencies {
+    implementation project(":application:category")
+
+}
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+    manifest {
+        attributes 'Main-Class': 'org.dell.edu.kube.business.KubeWorkshopBusinessApplication'
+    }
+}
