@@ -10,6 +10,7 @@ spec:
     emptyDir: {}
   containers:
   - image: adityapratapbhuyan/kube-ms-workshop:business-v1
+    imagePullPolicy: Always
     name: business
     volumeMounts:
       - name: log-volume
