@@ -4,6 +4,7 @@ metadata:
   labels:
     app: category
   name: category
+  namespace: aditya
 spec:
   replicas: 3
   selector:

@@ -4,6 +4,7 @@ metadata:
   labels:
     run: category
   name: category
+  namespace: aditya
 spec:
   volumes:
     - name: log-volume

@@ -4,6 +4,7 @@ metadata:
   labels:
     run: business
   name: business
+  namespace: aditya
 spec:
   volumes:
   - name: log-volume
