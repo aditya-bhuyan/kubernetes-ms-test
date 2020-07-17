@@ -71,16 +71,16 @@ jobs:
           sudo mv kubectl /usr/local/bin/
       - name: PKS Login
         run: |
-          pks login -a ${{ secrets.PKS_API }}  ${{ secrets.PKS_CLUSTER }} -u ${{ secrets.PKS_USERNAME }} -k -p ${{ secrets.PKS_PASSWORD }}
-          pks get-credentials pks-workshop
+          pks login -a ${{ secrets.PKS_API }}   -u ${{ secrets.PKS_USERNAME }} -k -p ${{ secrets.PKS_PASSWORD }}
+          pks get-credentials ${{ secrets.PKS_CLUSTER }}
 
           kubectl apply -f deployments/distributed-namespace.yaml
           kubectl apply -f deployments/mysql-pv.yaml
-          kubectl delete -f deployments/mysql-deployment.yaml
+          #kubectl delete -f deployments/mysql-deployment.yaml
           kubectl apply -f deployments/mysql-deployment.yaml
           kubectl apply -f deployments/category-service.yaml
-          kubectl delete -f deployments/category-deployment.yaml
+          #kubectl delete -f deployments/category-deployment.yaml
           kubectl apply -f deployments/category-deployment.yaml
           kubectl apply -f deployments/business-service.yaml
-          kubectl delete -f deployments/business-deployment.yaml
+          #kubectl delete -f deployments/business-deployment.yaml
           kubectl apply -f deployments/business-deployment.yaml
